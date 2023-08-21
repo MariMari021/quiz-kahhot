@@ -63,6 +63,7 @@ button{
 .vermelho{
     background-color: #C6B3FA;
     content: '♥';
+    background-image: url();
 }
 
 .azul{
@@ -88,6 +89,18 @@ footer{
     color: gray;
 }
 
-.fa-play {
-    background-color: black;
+
+.footer{
+    display: flex;
+    
+}
+
+.footer h3{
+    padding-left: 5px;
+}
+
+.question{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

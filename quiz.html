@@ -7,7 +7,6 @@
     <title>Quiz - Ensino Médio</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/a2288264db.js" crossorigin="anonymous"></script>
-
     <style>
         .imagem-pergunta {
             width: 525px;
@@ -18,34 +17,38 @@
 <body>
     <header>
         <img src="logo.png" alt="">
+
+
     </header>
     <main>
         <div class="centro">
             <div class="tempo"></div>
             <div class="pergunta">
-                <h4></h4>
+                <div class="question">
+                    <i class="fa-solid fa-pencil"></i>
+                    <h4></h4>
+                </div>
+
                 <img src="" alt="" class="imagem-pergunta">
                 <div class="alternativas">
                     <button class="vermelho" onclick="responder(0)">
-                        <span class="opcao-icon"><i class="fas fa-square"></i></span>
-                        Quadrado
+                        <span class="opcao-icon"><i class="fas fa-play"></i></span>
                     </button>
                     <button class="azul" onclick="responder(1)">
-                        <span class="opcao-icon"><i class="fas fa-play">Triângulo</i></span>
-                        
+                        <span class="opcao-icon"><i class="fas fa-gem"></i></span>
                     </button>
                 </div>
                 <div class="alternativas">
                     <button class="amarelo" onclick="responder(2)">
                         <span class="opcao-icon"><i class="fas fa-circle"></i></span>
-                        Círculo
                     </button>
                     <button class="verde" onclick="responder(3)">
-                        <span class="opcao-icon"><i class="fas fa-star"></i></span>
-                        Estrela
+                        <span class="opcao-icon"><i class="fas fa-square"></i></span>
                     </button>
                 </div>
+
             </div>
+
         </div>
 
         <div id="botoes">
@@ -56,58 +59,50 @@
     <footer>
         <div class="tudo">
             <div class="pontuacao">
-                Pontuação: <span id="pontos">0</span>
+                <i class="fa-solid fa-medal"></i>Pontuação: <span id="pontos">0</span>
             </div>
-            <h3><span>Tema:</span> Ensino médio</h3>
+            <div class="footer">
+                <i class="fa-solid fa-book"></i>
+                <h3>Ensino médio</h3>
+            </div>
+
         </div>
     </footer>
 
     <script>
-
-
-
         const perguntas = [
-            
             {
                 pergunta: "Quais o menor e o maior país do mundo?",
                 imagem: "mundi.png", // Substitua pelo caminho da imagem
                 alternativas: ["Vaticano e Rússia", "Nauru e China", "Mônaco e Canadá", "Índia e EUA"],
                 respostaCorreta: 0,
-                
             },
             {
                 pergunta: "Como é a conjugação do verbo caber na 1.ª pessoa do singular do presente do indicativo?",
                 imagem: "verbo.png", // Substitua pelo caminho da imagem
                 alternativas: ["Eu caibo", "Ele cabe", "Que eu caiba", "Eu cabo"],
                 respostaCorreta: 0,
-                
             },
             {
                 pergunta: "Em que período da pré-história o fogo foi descoberto?",
-                imagem: "pilar.png", // Substitua pelo caminho da imagem
+                imagem: "fogo.png", // Substitua pelo caminho da imagem
                 alternativas: ["Idade Média", "Paleolítico", "No século XX", "Período da Pedra Polida"],
                 respostaCorreta: 1,
             },
             {
                 pergunta: "Qual o nome do presidente do Brasil que ficou conhecido como Jango?",
-                imagem: "terra.png", // Substitua pelo caminho da imagem
+                imagem: "jango.png", // Substitua pelo caminho da imagem
                 alternativas: ["Jânio Quadros", "Jacinto Anjos", "Getúlio Vargas", "João Goulart"],
                 respostaCorreta: 3,
             },
             {
                 pergunta: "Qual a montanha mais alta do mundo?",
-                imagem: "terra.png", // Substitua pelo caminho da imagem
+                imagem: "monte.png", // Substitua pelo caminho da imagem
                 alternativas: ["Dhaulagiri", "Mauna Kea", "Monte Everest", "Pico da Neblina"],
                 respostaCorreta: 2,
             },
 
         ];
-
-
-
-
-
-
 
         let perguntaAtual = 0;
         let chances = 2;
@@ -118,18 +113,6 @@
         const alternativasElement = document.querySelectorAll('.alternativas button');
         const pontuacaoElement = document.getElementById('pontos');
         const proximoBotao = document.querySelector('#botoes button');
-        
-        function carregarPergunta() {
-            const pergunta = perguntas[perguntaAtual];
-            perguntaElement.textContent = pergunta.pergunta;
-            imagemElement.src = pergunta.imagem;
-
-            for (let i = 0; i < alternativasElement.length; i++) {
-                alternativasElement[i].innerHTML = `
-                    <span class="opcao-icon"><i class="fas ${iconeParaIndice(i)}"></i></span>
-                `;
-            }
-        }
 
         function carregarPergunta() {
             const pergunta = perguntas[perguntaAtual];
@@ -139,9 +122,9 @@
             for (let i = 0; i < alternativasElement.length; i++) {
                 alternativasElement[i].textContent = pergunta.alternativas[i];
             }
-
-            
         }
+
+
 
 
         function responder(indice) {
@@ -167,6 +150,7 @@
                     carregarPergunta();
                 }
             }
+
         }
 
         function proximaPergunta() {
