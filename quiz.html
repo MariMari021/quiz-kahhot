@@ -32,18 +32,14 @@
                 <img src="" alt="" class="imagem-pergunta">
                 <div class="alternativas">
                     <button class="vermelho" onclick="responder(0)">
-                        <span class="opcao-icon"><i class="fas fa-play"></i></span>
                     </button>
                     <button class="azul" onclick="responder(1)">
-                        <span class="opcao-icon"><i class="fas fa-gem"></i></span>
                     </button>
                 </div>
                 <div class="alternativas">
                     <button class="amarelo" onclick="responder(2)">
-                        <span class="opcao-icon"><i class="fas fa-circle"></i></span>
                     </button>
                     <button class="verde" onclick="responder(3)">
-                        <span class="opcao-icon"><i class="fas fa-square"></i></span>
                     </button>
                 </div>
 
@@ -70,57 +66,64 @@
     </footer>
 
     <script>
+        // essa const usa a variável 'pergunta' para formar arrays que armazenam as posíveis alterações do site.
         const perguntas = [
             {
                 pergunta: "Quais o menor e o maior país do mundo?",
-                imagem: "mundi.png", // Substitua pelo caminho da imagem
+                imagem: "mundi.png", 
                 alternativas: ["Vaticano e Rússia", "Nauru e China", "Mônaco e Canadá", "Índia e EUA"],
                 respostaCorreta: 0,
             },
             {
                 pergunta: "Como é a conjugação do verbo caber na 1.ª pessoa do singular do presente do indicativo?",
-                imagem: "verbo.png", // Substitua pelo caminho da imagem
+                imagem: "verbo.png", 
                 alternativas: ["Eu caibo", "Ele cabe", "Que eu caiba", "Eu cabo"],
                 respostaCorreta: 0,
             },
             {
                 pergunta: "Em que período da pré-história o fogo foi descoberto?",
-                imagem: "fogo.png", // Substitua pelo caminho da imagem
+                imagem: "fogo.png", 
                 alternativas: ["Idade Média", "Paleolítico", "No século XX", "Período da Pedra Polida"],
                 respostaCorreta: 1,
             },
             {
                 pergunta: "Qual o nome do presidente do Brasil que ficou conhecido como Jango?",
-                imagem: "jango.png", // Substitua pelo caminho da imagem
+                imagem: "jango.png", 
                 alternativas: ["Jânio Quadros", "Jacinto Anjos", "Getúlio Vargas", "João Goulart"],
                 respostaCorreta: 3,
             },
             {
                 pergunta: "Qual a montanha mais alta do mundo?",
-                imagem: "monte.png", // Substitua pelo caminho da imagem
+                imagem: "monte.png", 
                 alternativas: ["Dhaulagiri", "Mauna Kea", "Monte Everest", "Pico da Neblina"],
                 respostaCorreta: 2,
             },
 
         ];
 
-        let perguntaAtual = 0;
-        let chances = 2;
-        let pontos = 0;
+        // todas são variáveis que atulizam 
+        let perguntaAtual = 0; //define qual é a sequência das perguntas 
+        let chances = 2; //define a quantidade de chances de acerto
+        let pontos = 0; //define a pontuação inicial e a seguinte
 
+
+// seleciona itens no html para serem atualizados com os elementos definidos no js
         const perguntaElement = document.querySelector('.pergunta h4');
         const imagemElement = document.querySelector('.imagem-pergunta');
         const alternativasElement = document.querySelectorAll('.alternativas button');
         const pontuacaoElement = document.getElementById('pontos');
-        const proximoBotao = document.querySelector('#botoes button');
+        const proximoBotao = document.querySelector('#botoes button'); //altera a pergunta ou reinicia o site
 
+
+        //carrega as atualizações
         function carregarPergunta() {
-            const pergunta = perguntas[perguntaAtual];
-            perguntaElement.textContent = pergunta.pergunta;
+            const pergunta = perguntas[perguntaAtual]; //encontra as infos de 'pergunta'e usa 'perguntaAtual' para saber a ordem
+            perguntaElement.textContent = pergunta.pergunta; //exibe as atualizações no html (1.pergunta= propriedade html, 2.pergunta=variável)
             imagemElement.src = pergunta.imagem;
 
-            for (let i = 0; i < alternativasElement.length; i++) {
-                alternativasElement[i].textContent = pergunta.alternativas[i];
+            for (let i = 0; i < alternativasElement.length; i++)  //determina um indice das alternativas a repetição dos botões
+            {
+                alternativasElement[i].textContent = pergunta.alternativas[i]; //conecta a propriedade alternativas com a váriavel alternativas
             }
         }
 
@@ -128,8 +131,9 @@
 
 
         function responder(indice) {
+            //verifica se o indice de respostaCorreta e de perguntaAtual se completam
             if (indice === perguntas[perguntaAtual].respostaCorreta) {
-                pontos += 10;
+                pontos += 10; //se for certa a reposta acrescenta 10 pontos
                 pontuacaoElement.textContent = pontos;
                 perguntaAtual++;
                 proximoBotao.style.display = 'none';
@@ -147,43 +151,47 @@
                     chances = 2;
                     pontos = 0;
                     proximoBotao.style.display = 'none';
+                    pontuacaoElement.textContent = pontos;
                     carregarPergunta();
+                
                 }
             }
+
 
         }
 
         function iniciarJogo() {
-        carregarPergunta();
-        setInterval(proximaPerguntaAutomatica, 3000); // Carrega a próxima pergunta a cada 5 segundos (5000 ms)
-    }
-
-    function proximaPerguntaAutomatica() {
-        if (perguntaAtual < perguntas.length) {
             carregarPergunta();
-            proximoBotao.style.display = 'none';
-        } else {
-            reiniciarJogoAutomaticamente();
+            setInterval(proximaPerguntaAutomatica, 3000); // Carrega a próxima pergunta a cada 5 segundos (5000 ms)
         }
-    }
 
-    function reiniciarJogoAutomaticamente() {
-        perguntaAtual = 0;
-        chances = 2;
-        pontos = 0;
-        pontuacaoElement.textContent = pontos;
-        iniciarJogo(); }
-    window.onload = iniciarJogo;
+        function proximaPerguntaAutomatica() {
+            if (perguntaAtual < perguntas.length) {
+                carregarPergunta();
+                proximoBotao.style.display = 'none';
+            } else {
+                reiniciarJogoAutomaticamente();
+            }
+        }
+
+        function reiniciarJogoAutomaticamente() {
+            perguntaAtual = 0;
+            chances = 2;
+            pontos = 0;
+            pontuacaoElement.textContent = pontos;
+            iniciarJogo();
+        }
+        window.onload = iniciarJogo;
 
         function proximaPergunta() {
-        if (perguntaAtual < perguntas.length) {
-            carregarPergunta();
-            proximoBotao.style.display = 'none';
-        } else {
-            alert(`Fim do Quiz!\nPontuação: ${pontos}`);
-            setTimeout(reiniciarJogoAutomaticamente, 1000); // Reiniciar após 3 segundos (3000 ms)
+            if (perguntaAtual < perguntas.length) {
+                carregarPergunta();
+                proximoBotao.style.display = 'none';
+            } else {
+                alert(`Fim do Quiz!\nPontuação: ${pontos}`);
+                setTimeout(reiniciarJogoAutomaticamente, 1000); // Reiniciar após 3 segundos (3000 ms)
+            }
         }
-    }
 
 
 
