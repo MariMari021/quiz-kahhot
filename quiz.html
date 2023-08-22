@@ -153,14 +153,39 @@
 
         }
 
-        function proximaPergunta() {
-            if (perguntaAtual < perguntas.length) {
-                carregarPergunta();
-                proximoBotao.style.display = 'none';
-            } else {
-                alert(`Fim do Quiz!\nPontuação: ${pontos}`);
-            }
+        function iniciarJogo() {
+        carregarPergunta();
+        setInterval(proximaPerguntaAutomatica, 3000); // Carrega a próxima pergunta a cada 5 segundos (5000 ms)
+    }
+
+    function proximaPerguntaAutomatica() {
+        if (perguntaAtual < perguntas.length) {
+            carregarPergunta();
+            proximoBotao.style.display = 'none';
+        } else {
+            reiniciarJogoAutomaticamente();
         }
+    }
+
+    function reiniciarJogoAutomaticamente() {
+        perguntaAtual = 0;
+        chances = 2;
+        pontos = 0;
+        pontuacaoElement.textContent = pontos;
+        iniciarJogo(); }
+    window.onload = iniciarJogo;
+
+        function proximaPergunta() {
+        if (perguntaAtual < perguntas.length) {
+            carregarPergunta();
+            proximoBotao.style.display = 'none';
+        } else {
+            alert(`Fim do Quiz!\nPontuação: ${pontos}`);
+            setTimeout(reiniciarJogoAutomaticamente, 1000); // Reiniciar após 3 segundos (3000 ms)
+        }
+    }
+
+
 
         carregarPergunta();
     </script>
